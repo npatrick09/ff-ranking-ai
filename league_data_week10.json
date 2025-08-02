@@ -7,11 +7,11 @@
     "star_players": [
       {
         "name": "Josh Allen",
-        "avg": 20.3
+        "avg": 20.4
       },
       {
-        "name": "Alexander Mattison",
-        "avg": 17.2
+        "name": "Davante Adams",
+        "avg": 16.5
       }
     ],
     "win_streak": 0,
@@ -27,11 +27,11 @@
     "star_players": [
       {
         "name": "Jared Goff",
-        "avg": 19.9
+        "avg": 24.6
       },
       {
-        "name": "Brian Robinson Jr.",
-        "avg": 16.8
+        "name": "Tua Tagovailoa",
+        "avg": 22.7
       }
     ],
     "win_streak": 0,
@@ -47,19 +47,17 @@
     "star_players": [
       {
         "name": "Patrick Mahomes",
-        "avg": 21.3
+        "avg": 24.4
       },
       {
-        "name": "Nico Collins",
+        "name": "Kareem Hunt",
         "avg": 16.4
       }
     ],
     "win_streak": 0,
     "strength_of_schedule": 0.5,
     "remaining_schedule_note": "Playoff push time",
-    "injuries": [
-      "WR1 - Questionable"
-    ]
+    "injuries": []
   },
   "Rokus": {
     "record": "4-10",
@@ -68,18 +66,20 @@
     "last_3_games": 0,
     "star_players": [
       {
-        "name": "C.J. Stroud",
-        "avg": 25.2
+        "name": "Xavier Worthy",
+        "avg": 16.1
       },
       {
-        "name": "Mike Evans",
-        "avg": 14.4
+        "name": "Zach Charbonnet",
+        "avg": 15.1
       }
     ],
     "win_streak": 0,
     "strength_of_schedule": 0.532,
     "remaining_schedule_note": "Playoff push time",
-    "injuries": []
+    "injuries": [
+      "WR1 - Questionable"
+    ]
   },
   "Very Good": {
     "record": "8-6",
@@ -88,12 +88,12 @@
     "last_3_games": 0,
     "star_players": [
       {
-        "name": "Chase Brown",
-        "avg": 15.5
+        "name": "Marvin Harrison Jr.",
+        "avg": 13.4
       },
       {
-        "name": "Tank Dell",
-        "avg": 13.4
+        "name": "Amon-Ra St. Brown",
+        "avg": 12.8
       }
     ],
     "win_streak": 0,
@@ -108,18 +108,20 @@
     "last_3_games": 0,
     "star_players": [
       {
-        "name": "Baker Mayfield",
-        "avg": 23.3
+        "name": "Jalen Hurts",
+        "avg": 20.7
       },
       {
         "name": "Derrick Henry",
-        "avg": 15.7
+        "avg": 14.5
       }
     ],
     "win_streak": 0,
     "strength_of_schedule": 0.492,
     "remaining_schedule_note": "Playoff push time",
-    "injuries": []
+    "injuries": [
+      "WR1 - Questionable"
+    ]
   },
   "Butt cum bingo": {
     "record": "5-9",
@@ -129,19 +131,17 @@
     "star_players": [
       {
         "name": "Lamar Jackson",
-        "avg": 16.7
+        "avg": 24.1
       },
       {
-        "name": "A.J. Brown",
-        "avg": 15.9
+        "name": "DeAndre Hopkins",
+        "avg": 16.0
       }
     ],
     "win_streak": 0,
     "strength_of_schedule": 0.508,
     "remaining_schedule_note": "Playoff push time",
-    "injuries": [
-      "WR1 - Questionable"
-    ]
+    "injuries": []
   },
   "Tyreek Walling": {
     "record": "8-6",
@@ -151,17 +151,19 @@
     "star_players": [
       {
         "name": "Jordan Love",
-        "avg": 20.9
+        "avg": 25.8
       },
       {
-        "name": "Tyreek Hill",
-        "avg": 15.7
+        "name": "Jameson Williams",
+        "avg": 16.1
       }
     ],
     "win_streak": 0,
     "strength_of_schedule": 0.476,
     "remaining_schedule_note": "Playoff push time",
-    "injuries": []
+    "injuries": [
+      "WR1 - Questionable"
+    ]
   },
   "Don Quan": {
     "record": "7-7",
@@ -171,11 +173,11 @@
     "star_players": [
       {
         "name": "Kyler Murray",
-        "avg": 25.8
+        "avg": 21.6
       },
       {
         "name": "Justin Herbert",
-        "avg": 18.9
+        "avg": 21.6
       }
     ],
     "win_streak": 0,
@@ -191,19 +193,17 @@
     "star_players": [
       {
         "name": "Sam Darnold",
-        "avg": 24.3
+        "avg": 23.3
       },
       {
-        "name": "Rico Dowdle",
-        "avg": 17.0
+        "name": "Najee Harris",
+        "avg": 16.8
       }
     ],
     "win_streak": 0,
     "strength_of_schedule": 0.5,
     "remaining_schedule_note": "Playoff push time",
-    "injuries": [
-      "WR1 - Questionable"
-    ]
+    "injuries": []
   },
   "Hash Slinging Slasher": {
     "record": "10-4",
@@ -212,18 +212,20 @@
     "last_3_games": 0,
     "star_players": [
       {
-        "name": "Matthew Stafford",
-        "avg": 24.5
+        "name": "Joe Burrow",
+        "avg": 20.1
       },
       {
-        "name": "Joe Burrow",
-        "avg": 17.7
+        "name": "DeVonta Smith",
+        "avg": 16.4
       }
     ],
     "win_streak": 0,
     "strength_of_schedule": 0.476,
     "remaining_schedule_note": "Playoff push time",
-    "injuries": []
+    "injuries": [
+      "WR1 - Questionable"
+    ]
   },
   "Osama Bin Watson": {
     "record": "6-8",
@@ -233,11 +235,11 @@
     "star_players": [
       {
         "name": "Brock Purdy",
-        "avg": 24.0
+        "avg": 24.1
       },
       {
-        "name": "Geno Smith",
-        "avg": 18.5
+        "name": "Drake London",
+        "avg": 15.5
       }
     ],
     "win_streak": 0,
