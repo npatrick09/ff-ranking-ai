@@ -62,8 +62,8 @@ def analyze_league_trends(league_data):
     print(f"🔥 Longest win streak: {longest_streak[0]} ({longest_streak[1]['win_streak']} wins)")
     
     # Find team with toughest schedule
-    toughest_schedule = max(league_data.items(), key=lambda x: x[1]['early_schedule_strength'])
-    print(f"💪 Toughest early schedule: {toughest_schedule[0]} ({toughest_schedule[1]['early_schedule_strength']})")
+    toughest_schedule = max(league_data.items(), key=lambda x: x[1]['strength_of_schedule'])
+    print(f"💪 Toughest schedule so far: {toughest_schedule[0]} ({toughest_schedule[1]['strength_of_schedule']})")
     
     # Teams with injuries
     injured_teams = [team for team, data in league_data.items() if data['injuries']]
@@ -90,7 +90,7 @@ League Data (Week 10, 2024):
 Please analyze each team and create power rankings considering:
 1. Current record and recent performance (last 3 games)
 2. Star player production and injury concerns
-3. Schedule strength (both past and remaining)
+3. Strength of schedule so far this season
 4. Momentum (win streaks/trends)
 5. Total points scored vs league average
 

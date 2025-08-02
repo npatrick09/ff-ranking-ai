@@ -223,19 +223,19 @@ class FantasyLeagueDataPuller:
     
     def calculate_schedule_strength(self, team):
         """
-        Calculate early season schedule strength (weeks 1-6).
+        Calculate season-long schedule strength (weeks 1 through current week).
         
         Args:
             team: Yahoo Fantasy team object
             
         Returns:
-            float: Schedule strength rating
+            float: Schedule strength rating based on opponents' win percentages
         """
         try:
             opponent_records = []
             
-            # Look at opponents from weeks 1-6
-            for week_num in range(1, min(7, self.target_week)):
+            # Look at all opponents from week 1 through target week - 1
+            for week_num in range(1, self.target_week):
                 week = self.league.weeks()[week_num - 1]
                 
                 # Find opponent for this week
@@ -354,7 +354,7 @@ class FantasyLeagueDataPuller:
             "last_3_games": int(last_3_points),
             "star_players": star_players,
             "win_streak": win_streak,
-            "early_schedule_strength": schedule_strength,
+            "strength_of_schedule": schedule_strength,
             "remaining_schedule_note": remaining_note,
             "injuries": injuries
         }

@@ -7,15 +7,15 @@
     "star_players": [
       {
         "name": "Josh Allen",
-        "avg": 18.9
+        "avg": 20.3
       },
       {
-        "name": "CeeDee Lamb",
-        "avg": 15.7
+        "name": "Alexander Mattison",
+        "avg": 17.2
       }
     ],
     "win_streak": 0,
-    "early_schedule_strength": 0.464,
+    "strength_of_schedule": 0.452,
     "remaining_schedule_note": "Playoff push time",
     "injuries": []
   },
@@ -26,20 +26,18 @@
     "last_3_games": 0,
     "star_players": [
       {
-        "name": "Tua Tagovailoa",
-        "avg": 19.0
+        "name": "Jared Goff",
+        "avg": 19.9
       },
       {
         "name": "Brian Robinson Jr.",
-        "avg": 17.0
+        "avg": 16.8
       }
     ],
     "win_streak": 0,
-    "early_schedule_strength": 0.476,
+    "strength_of_schedule": 0.524,
     "remaining_schedule_note": "Playoff push time",
-    "injuries": [
-      "WR1 - Questionable"
-    ]
+    "injuries": []
   },
   "Stugletary": {
     "record": "8-6",
@@ -49,15 +47,15 @@
     "star_players": [
       {
         "name": "Patrick Mahomes",
-        "avg": 23.0
+        "avg": 21.3
       },
       {
-        "name": "Garrett Wilson",
-        "avg": 16.3
+        "name": "Nico Collins",
+        "avg": 16.4
       }
     ],
     "win_streak": 0,
-    "early_schedule_strength": 0.488,
+    "strength_of_schedule": 0.5,
     "remaining_schedule_note": "Playoff push time",
     "injuries": [
       "WR1 - Questionable"
@@ -71,15 +69,15 @@
     "star_players": [
       {
         "name": "C.J. Stroud",
-        "avg": 18.9
+        "avg": 25.2
       },
       {
-        "name": "Calvin Ridley",
-        "avg": 16.2
+        "name": "Mike Evans",
+        "avg": 14.4
       }
     ],
     "win_streak": 0,
-    "early_schedule_strength": 0.536,
+    "strength_of_schedule": 0.532,
     "remaining_schedule_note": "Playoff push time",
     "injuries": []
   },
@@ -90,20 +88,18 @@
     "last_3_games": 0,
     "star_players": [
       {
-        "name": "James Cook",
-        "avg": 16.5
+        "name": "Chase Brown",
+        "avg": 15.5
       },
       {
-        "name": "Josh Jacobs",
-        "avg": 14.6
+        "name": "Tank Dell",
+        "avg": 13.4
       }
     ],
     "win_streak": 0,
-    "early_schedule_strength": 0.512,
+    "strength_of_schedule": 0.484,
     "remaining_schedule_note": "Playoff push time",
-    "injuries": [
-      "WR1 - Questionable"
-    ]
+    "injuries": []
   },
   "Pervy Patrick": {
     "record": "8-6",
@@ -113,19 +109,17 @@
     "star_players": [
       {
         "name": "Baker Mayfield",
-        "avg": 17.8
+        "avg": 23.3
       },
       {
-        "name": "Jalen Hurts",
-        "avg": 17.8
+        "name": "Derrick Henry",
+        "avg": 15.7
       }
     ],
     "win_streak": 0,
-    "early_schedule_strength": 0.476,
+    "strength_of_schedule": 0.492,
     "remaining_schedule_note": "Playoff push time",
-    "injuries": [
-      "WR1 - Questionable"
-    ]
+    "injuries": []
   },
   "Butt cum bingo": {
     "record": "5-9",
@@ -135,17 +129,19 @@
     "star_players": [
       {
         "name": "Lamar Jackson",
-        "avg": 25.9
+        "avg": 16.7
       },
       {
-        "name": "Saquon Barkley",
-        "avg": 16.1
+        "name": "A.J. Brown",
+        "avg": 15.9
       }
     ],
     "win_streak": 0,
-    "early_schedule_strength": 0.548,
+    "strength_of_schedule": 0.508,
     "remaining_schedule_note": "Playoff push time",
-    "injuries": []
+    "injuries": [
+      "WR1 - Questionable"
+    ]
   },
   "Tyreek Walling": {
     "record": "8-6",
@@ -154,20 +150,18 @@
     "last_3_games": 0,
     "star_players": [
       {
-        "name": "Jerry Jeudy",
-        "avg": 16.2
+        "name": "Jordan Love",
+        "avg": 20.9
       },
       {
-        "name": "Jordan Love",
-        "avg": 14.0
+        "name": "Tyreek Hill",
+        "avg": 15.7
       }
     ],
     "win_streak": 0,
-    "early_schedule_strength": 0.452,
+    "strength_of_schedule": 0.476,
     "remaining_schedule_note": "Playoff push time",
-    "injuries": [
-      "WR1 - Questionable"
-    ]
+    "injuries": []
   },
   "Don Quan": {
     "record": "7-7",
@@ -177,19 +171,17 @@
     "star_players": [
       {
         "name": "Kyler Murray",
-        "avg": 21.4
+        "avg": 25.8
       },
       {
         "name": "Justin Herbert",
-        "avg": 21.4
+        "avg": 18.9
       }
     ],
     "win_streak": 0,
-    "early_schedule_strength": 0.536,
+    "strength_of_schedule": 0.532,
     "remaining_schedule_note": "Playoff push time",
-    "injuries": [
-      "WR1 - Questionable"
-    ]
+    "injuries": []
   },
   "Jesse's Phenomenal Team": {
     "record": "6-8",
@@ -199,15 +191,15 @@
     "star_players": [
       {
         "name": "Sam Darnold",
-        "avg": 16.4
+        "avg": 24.3
       },
       {
-        "name": "Darnell Mooney",
-        "avg": 16.3
+        "name": "Rico Dowdle",
+        "avg": 17.0
       }
     ],
     "win_streak": 0,
-    "early_schedule_strength": 0.512,
+    "strength_of_schedule": 0.5,
     "remaining_schedule_note": "Playoff push time",
     "injuries": [
       "WR1 - Questionable"
@@ -220,16 +212,16 @@
     "last_3_games": 0,
     "star_players": [
       {
-        "name": "Joe Burrow",
-        "avg": 19.6
+        "name": "Matthew Stafford",
+        "avg": 24.5
       },
       {
-        "name": "Ameer Abdullah",
-        "avg": 14.5
+        "name": "Joe Burrow",
+        "avg": 17.7
       }
     ],
     "win_streak": 0,
-    "early_schedule_strength": 0.464,
+    "strength_of_schedule": 0.476,
     "remaining_schedule_note": "Playoff push time",
     "injuries": []
   },
@@ -240,16 +232,16 @@
     "last_3_games": 0,
     "star_players": [
       {
-        "name": "Geno Smith",
-        "avg": 19.6
+        "name": "Brock Purdy",
+        "avg": 24.0
       },
       {
-        "name": "Kyren Williams",
-        "avg": 16.9
+        "name": "Geno Smith",
+        "avg": 18.5
       }
     ],
     "win_streak": 0,
-    "early_schedule_strength": 0.536,
+    "strength_of_schedule": 0.524,
     "remaining_schedule_note": "Playoff push time",
     "injuries": []
   }
