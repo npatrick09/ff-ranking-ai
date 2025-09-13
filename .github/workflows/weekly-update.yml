@@ -1,0 +1,38 @@
+name: weekly-update
+
+on:
+  schedule:
+    # 9am ET ≈ 14:00 UTC during standard time (adjust to 13:00 UTC in DST if desired)
+    - cron: '0 14 * * 2'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      OPENAI_key: ${{ secrets.OPENAI_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate weekly rankings
+        run: python pull_league_data.py
+
+      - name: Commit artifacts
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add chat_prompt.json ai_power_rankings.html league_standings_week*.json
+          git commit -m "Weekly update $(date -u +'%Y-%m-%d')" || echo "No changes to commit"
+          git push
