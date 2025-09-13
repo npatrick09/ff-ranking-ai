@@ -457,6 +457,43 @@ class FantasyLeagueStandingsPuller:
         norm = self._normalize_name(name)
         rank_map = self._yahoo_pos_ranks.get(pos) or {}
         return rank_map.get(norm)
+
+    def _compute_roster_quality(self, roster):
+        """
+        Compute a roster quality score from player position ranks.
+        Higher is better. Uses 1/rank for selected slots to reward elite players.
+        Slots:
+          - QB: best 1
+          - RB: best 2
+          - WR: best 3
+          - TE: best 1
+          - K:  best 1
+          - DST: best 1
+        """
+        try:
+            pos_to_ranks = {"QB": [], "RB": [], "WR": [], "TE": [], "K": [], "DST": []}
+            for p in roster or []:
+                pos = (p.get("display_position") or "").split("/")[0].upper()
+                if pos == "DEF":
+                    pos = "DST"
+                r = p.get("pos_rank")
+                if pos in pos_to_ranks and isinstance(r, (int, float)) and r > 0:
+                    pos_to_ranks[pos].append(int(r))
+            # sort ascending (lower rank is better)
+            for k in pos_to_ranks:
+                pos_to_ranks[k].sort()
+            take = {"QB": 1, "RB": 2, "WR": 3, "TE": 1, "K": 1, "DST": 1}
+            score = 0.0
+            for pos, n in take.items():
+                ranks = pos_to_ranks.get(pos, [])[:n]
+                for rk in ranks:
+                    try:
+                        score += 1.0 / float(rk)
+                    except Exception:
+                        continue
+            return round(score, 6)
+        except Exception:
+            return 0.0
     def _fetch_sleeper_adp_pos_ranks(self):
         """
         Fetch season-long positional ranks using Sleeper ADP as a proxy.
@@ -885,6 +922,8 @@ class FantasyLeagueStandingsPuller:
             last_week_result = self._get_last_week_result(team)
             # Last 3 weeks points total (gated until after week 3)
             last3_points_total = self._get_last3_points_total(team)
+            # Roster quality score (from pos ranks)
+            roster_quality = self._compute_roster_quality(roster)
         
             return {
                 "record": record,
@@ -898,7 +937,8 @@ class FantasyLeagueStandingsPuller:
                 "games_played": total_games,
                 "roster": roster,
                 "last_week_result": last_week_result,
-                "last3_points_total": last3_points_total
+                "last3_points_total": last3_points_total,
+                "roster_quality": roster_quality
             }
             
         except Exception as e:
@@ -947,11 +987,15 @@ class FantasyLeagueStandingsPuller:
             print(f"Error pulling league standings: {e}")
             return None
         
-        # Sort teams by win percentage (highest first)
+        # Sort teams for on-site ranking: PF first, then record, then roster quality
         if league_data["teams"]:
             sorted_teams = sorted(
                 league_data["teams"].items(), 
-                key=lambda x: (-x[1]["win_percentage"], -x[1]["points_for"])
+                key=lambda x: (
+                    -float(x[1].get("points_for") or 0),
+                    -float(x[1].get("win_percentage") or 0),
+                    -float(x[1].get("roster_quality") or 0),
+                )
             )
             league_data["teams"] = dict(sorted_teams)
         
@@ -988,6 +1032,9 @@ class FantasyLeagueStandingsPuller:
             pos_to_ranks = {}
             injuries = []
             injuries_count = 0
+            # Compute star players (pos_rank <= 5), limit 1 QB
+            stars = []
+            best_qb = None  # (rank, name)
             for player in roster:
                 pos = (player.get("display_position") or "").split("/")[0].upper()
                 if pos == "DEF":
@@ -1008,10 +1055,33 @@ class FantasyLeagueStandingsPuller:
                                 injuries.append(f"{nm} ({status})")
                     except Exception:
                         pass
+                # Star player selection
+                try:
+                    if isinstance(rank, (int, float)) and int(rank) <= 5:
+                        nm = str(player.get("name") or "").strip()
+                        if nm:
+                            if pos == "QB":
+                                # keep only best QB (lowest rank)
+                                if best_qb is None or int(rank) < best_qb[0]:
+                                    best_qb = (int(rank), nm)
+                            else:
+                                stars.append(nm)
+                except Exception:
+                    pass
             # sort and uniq ranks per position
             for pos, ranks in pos_to_ranks.items():
                 ranks = sorted(set(ranks))
                 pos_to_ranks[pos] = ranks
+            # finalize stars: add best QB if present; keep unique and stable order
+            if best_qb is not None:
+                stars.insert(0, best_qb[1])
+            # de-duplicate while preserving order
+            seen_star = set()
+            dedup_stars = []
+            for nm in stars:
+                if nm and nm not in seen_star:
+                    dedup_stars.append(nm)
+                    seen_star.add(nm)
             teams_prompt.append({
                 "team_name": team_name,
                 "record": td.get("record"),
@@ -1025,17 +1095,16 @@ class FantasyLeagueStandingsPuller:
                 "injuries_list": injuries[:5],
                 "last_week_result": td.get("last_week_result"),
                 "last3_points_total": td.get("last3_points_total"),
+                "stars": dedup_stars,
             })
         return {
             "league": league_data.get("league_info", {}).get("name"),
             "season": league_data.get("league_info", {}).get("season_year"),
             "week": league_data.get("league_info", {}).get("target_week"),
             "instructions": (
-                "Create power rankings for this league in the tone of a snarky, R-rated football analyst. "
-                "Return a ranked order from 1 (best) to N (worst). For each team, write 2–3 sentences of "
-                "edgy, comedic analysis; roast underperformers hard with crude humor and mild profanity, but "
-                "avoid slurs or hateful language. Use provided stats and position_ranks; consider injuries with "
-                "position and rank where noted."
+                "Create power rankings for this league with an R-rated, profanity-laced (no slurs) snarky tone. "
+                "Rank by valuing Points For (PF) above record, while still considering record for tiebreaks. "
+                "For each team, write 2–3 sentences of edgy, comedic analysis."
             ),
             "teams": teams_prompt,
         }
@@ -1062,7 +1131,91 @@ class FantasyLeagueStandingsPuller:
         )
         return key
 
-    def generate_power_rankings_html(self, prompt_file="chat_prompt.json", output_html="index.html"):
+    def generate_ai_team_summaries(self, prompt_obj):
+        """
+        Use OpenAI to generate short HTML summaries per team and embed into prompt_obj as ai_summary_html.
+        Returns True if summaries were added, else False.
+        """
+        key = self._load_openai_key()
+        if not key:
+            print("OpenAI API key not found; skipping AI team summaries.")
+            return False
+        try:
+            from openai import OpenAI
+        except Exception as e:
+            print(f"OpenAI client not available: {e}")
+            return False
+
+        try:
+            # Build compact data for the model
+            compact = {
+                "league": prompt_obj.get("league"),
+                "season": prompt_obj.get("season"),
+                "week": prompt_obj.get("week"),
+                "teams": []
+            }
+            for t in prompt_obj.get("teams", []):
+                compact["teams"].append({
+                    "team_name": t.get("team_name"),
+                    "record": t.get("record"),
+                    "win_pct": t.get("win_pct"),
+                    "points_for": t.get("points_for"),
+                    "points_against": t.get("points_against"),
+                    "point_diff": t.get("point_diff"),
+                    "games_played": t.get("games_played"),
+                    "position_ranks": t.get("position_ranks", {}),
+                    "injuries_list": t.get("injuries_list", []),
+                    "last_week_result": t.get("last_week_result"),
+                    "last3_points_total": t.get("last3_points_total"),
+                })
+
+            client = OpenAI(api_key=key)
+            system_msg = (
+                "You produce JSON only. For each team, create a short HTML snippet (2–3 sentences) "
+                "of R-rated snarky analysis (no slurs). Return strictly this JSON schema: "
+                "{\"summaries\":[{\"team_name\":string,\"html\":string}]}"
+            )
+            user_msg = (
+                "Generate the JSON now. Use <strong> and <em> sparingly, no CSS.\n\n"
+                + json.dumps(compact)
+            )
+            resp = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[
+                    {"role": "system", "content": system_msg},
+                    {"role": "user", "content": user_msg},
+                ],
+                temperature=0.7,
+            )
+            content = resp.choices[0].message.content if resp and resp.choices else ""
+            data = None
+            try:
+                data = json.loads(content)
+            except Exception:
+                # Try to extract JSON block heuristically
+                start = content.find("{")
+                end = content.rfind("}")
+                if start != -1 and end != -1 and end > start:
+                    try:
+                        data = json.loads(content[start:end+1])
+                    except Exception:
+                        data = None
+            if not data or "summaries" not in data:
+                print("AI summaries response missing or invalid; skipping.")
+                return False
+            mapping = {item.get("team_name"): item.get("html") for item in data.get("summaries", [])}
+            updated = False
+            for t in prompt_obj.get("teams", []):
+                tn = t.get("team_name")
+                if tn in mapping and mapping[tn]:
+                    t["ai_summary_html"] = mapping[tn]
+                    updated = True
+            return updated
+        except Exception as e:
+            print(f"Error generating team summaries: {e}")
+            return False
+
+    def generate_power_rankings_html(self, prompt_file="chat_prompt.json", output_html="ai_power_rankings.html"):
         try:
             with open(prompt_file, "r") as f:
                 payload = json.load(f)
@@ -1082,11 +1235,11 @@ class FantasyLeagueStandingsPuller:
             client = OpenAI(api_key=key)
             system_msg = (
                 "You are a snarky, R-rated (no slurs), edgy football analyst who writes clean, semantic HTML. "
-                "Use comedic roasts, mild profanity, and punchy phrasing."
+                "Use comedic roasts and profanity (no slurs). Value Points For above record in your reasoning."
             )
             user_msg = (
                 "Using this JSON, produce a ranked power rankings page as clean semantic HTML. "
-                "Include an ordered list with each team’s rank, team name, record, PF/PA. For each team, write 2–3 sentences: "
+                "Include an ordered list with each team’s rank, team name, record, PF/PA. Rank by PF first, then record. For each team, write 2–3 sentences: "
                 "insightful, crude, and funny; roast losers. Briefly cite injuries and positional strengths where relevant. "
                 "Keep styles minimal.\n\n"
                 + json.dumps(payload)
@@ -1171,10 +1324,16 @@ def main():
         
         # Save to file
         puller.save_data(standings_data)
-        # Build and save ChatGPT prompt JSON
+        # Build ChatGPT prompt JSON
         prompt_obj = puller.build_chatgpt_prompt(standings_data)
+        # Generate per-team summaries and embed
+        try:
+            updated = puller.generate_ai_team_summaries(prompt_obj)
+        except Exception:
+            updated = False
+        # Save prompt (with summaries if available)
         puller.save_prompt(prompt_obj)
-        # Optionally generate HTML power rankings via OpenAI
+        # Optionally generate full-page HTML via OpenAI
         puller.generate_power_rankings_html()
         
         print(f"\nStandings data pulled for {len(standings_data['teams'])} teams")

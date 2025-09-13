@@ -1,63 +1,44 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kappa Concealed Carry Power Rankings - Week 1</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FF Power Rankings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Kappa Concealed Carry Power Rankings - Week 1</h1>
-    <ol>
-        <li>
-            <h2>1. Church Chatter (1-0)</h2>
-            <p>With a point differential that makes the rest of the league look like a bad joke, Church Chatter is the top dog this week. They’ve got a QB duo that could probably throw a football through a brick wall and still have time to grab a beer. No injuries? Must be nice! Don’t let it go to your head, or you might end up in last week’s dumpster fire.</p>
-        </li>
-        <li>
-            <h2>2. Indy’s Dad (1-0)</h2>
-            <p>Indy’s Dad is like that uncle who shows up to Thanksgiving with a half-baked casserole—somehow still manages to win. Their record looks good, but let’s be real, they barely scraped by. With a WR lineup that ranks lower than your favorite reality show, they better hope their RBs are packing some serious heat.</p>
-        </li>
-        <li>
-            <h2>3. You Understand Right? (1-0)</h2>
-            <p>You Understand Right? may have the most confusing name in the league, but at least they understand how to win. Their defense is tighter than your grandma’s hug, and with a solid kicker, they’re not just hanging on— they’re kicking ass. Let’s see if that magic holds up when they face real competition.</p>
-        </li>
-        <li>
-            <h2>4. Pervy Patrick (1-0)</h2>
-            <p>Pervy Patrick may be cruising with a win, but they’re basically riding a rollercoaster with three major injuries. Losing Kittle, Goedert, and Purdy is like trying to win a race while riding a unicycle. Their WR corps is promising, but without their star players, they’re just a bunch of hopefuls waiting for a miracle.</p>
-        </li>
-        <li>
-            <h2>5. Bonnie Lu (1-0)</h2>
-            <p>Bonnie Lu is like that friend who shows up to the party, looks good, but can’t hold their liquor. They’ve got some decent RBs but are dealing with injuries that’ll make them question their life choices. Their defense is decent, but they need to step it up before they’re left in the dust.</p>
-        </li>
-        <li>
-            <h2>6. Check Please (1-0)</h2>
-            <p>Check Please is like a waiter who takes your order but forgets half of it—barely got a win but looked shaky doing it. Injuries are creeping in like that awkward silence at a dinner party, and their WRs are barely holding it together. They might want to step it up, or they’ll be saying “check, please” on their season.</p>
-        </li>
-        <li>
-            <h2>7. DEVastation (0-1)</h2>
-            <p>DEVastation's name is fitting because they just got wrecked in their first game. Scoring over 100 points and still losing? That’s like going to a buffet and leaving hungry. They’re nursing a couple of injuries, so good luck bouncing back from this pitiful start!</p>
-        </li>
-        <li>
-            <h2>8. Moff Gideon (0-1)</h2>
-            <p>Moff Gideon came in with a game plan but left the field looking like they’d just lost a bar fight. With a point differential that’s more like a sad trombone than a victory song, they’ve got to figure it out quickly. Injuries aren’t helping, but they need to find a way to score before their season ends faster than a bad sitcom.</p>
-        </li>
-        <li>
-            <h2>9. Stugletary (0-1)</h2>
-            <p>Stugletary is about as effective as a screen door on a submarine. With a lineup that can’t seem to get it together, they’re looking at a long, painful season ahead. If they can’t get their act together, expect them to be bottom-feeders before you can say “whoops!”</p>
-        </li>
-        <li>
-            <h2>10. Don Quan (0-1)</h2>
-            <p>Don Quan is like a bad quarterback—throwing interceptions left and right. Their performance was about as inspiring as a motivational poster in a high school cafeteria. They need to step it up or risk becoming the laughingstock of the league. Spoiler alert: they might already be there!</p>
-        </li>
-        <li>
-            <h2>11. champagnepapi707 (0-1)</h2>
-            <p>champagnepapi707 is about as bubbly as flat soda after a night out—no fizz, no fun. Their performance was so weak it could've been a no-show at a karaoke bar. They better start popping off soon or this season will go down in flames.</p>
-        </li>
-        <li>
-            <h2>12. They Hit The 2nd Bower (0-1)</h2>
-            <p>They Hit The 2nd Bower hit the field like a deer in headlights—totally unprepared. Scoring less than a high school team is no way to start your season. They’ve got a WR on the sidelines with an injury, and let’s be honest, they’ll need more than luck to turn this ship around.</p>
-        </li>
-    </ol>
+<header class="site-header">
+  <div class="container head">
+    <h1>Fantasy Football Power Rankings</h1>
+    <div class="meta">
+      <span id="league-name"></span>
+      <span id="context-week"></span>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="controls">
+    <button id="refresh-btn" class="btn">Refresh</button>
+    <div class="legend">
+      <span class="chip chip-good">PLAYOFFS</span>
+      <span class="chip chip-mid">MID</span>
+      <span class="chip chip-bad">ASS</span>
+    </div>
+  </section>
+
+  <ol id="rankings" class="rankings"></ol>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>Built for fun. Data from Yahoo Fantasy + AI commentary. Use responsibly.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
-```
