@@ -375,6 +375,76 @@ class FantasyLeagueStandingsPuller:
         self._yahoo_pos_ranks = pos_to_rankmap
         return self._yahoo_pos_ranks
 
+    def _get_team_week_points(self, team, week_num):
+        """Return (team_points, opponent_points) for a given team and week, or (None, None)."""
+        try:
+            week = self.league.weeks()[week_num - 1]
+            for matchup in week.matchups:
+                team_stats = None
+                opp_stats = None
+                if matchup.team1.team_id == team.team_id:
+                    team_stats = matchup.team1_stats
+                    opp_stats = matchup.team2_stats
+                elif matchup.team2.team_id == team.team_id:
+                    team_stats = matchup.team2_stats
+                    opp_stats = matchup.team1_stats
+                if team_stats is None or opp_stats is None:
+                    continue
+                team_pts = None
+                opp_pts = None
+                for st in team_stats:
+                    if getattr(st, "stat_id", None) == "0":
+                        try:
+                            team_pts = float(st.value)
+                        except Exception:
+                            team_pts = None
+                        break
+                for st in opp_stats:
+                    if getattr(st, "stat_id", None) == "0":
+                        try:
+                            opp_pts = float(st.value)
+                        except Exception:
+                            opp_pts = None
+                        break
+                return team_pts, opp_pts
+        except Exception:
+            pass
+        return None, None
+
+    def _get_last_week_result(self, team):
+        """Return a compact last-week result string like 'W 104.9-98.2' or None if not available."""
+        if self.target_week <= 1:
+            return None
+        last_week = self.target_week - 1
+        team_pts, opp_pts = self._get_team_week_points(team, last_week)
+        if team_pts is None or opp_pts is None:
+            return None
+        if team_pts > opp_pts:
+            res = "W"
+        elif team_pts < opp_pts:
+            res = "L"
+        else:
+            res = "T"
+        return f"{res} {round(team_pts, 2)}-{round(opp_pts, 2)}"
+
+    def _get_last3_points_total(self, team):
+        """Return sum of the last 3 completed weeks points (only after week 3), else None."""
+        if self.target_week <= 3:
+            return None
+        start_wk = max(1, self.target_week - 3)
+        end_wk = self.target_week - 1
+        total = 0.0
+        found = 0
+        for wk in range(start_wk, end_wk + 1):
+            team_pts, _ = self._get_team_week_points(team, wk)
+            if team_pts is not None:
+                total += float(team_pts)
+                found += 1
+        if found < 3:
+            # If fewer than 3 completed games found, still return the sum of what exists after week 3
+            return round(total, 2)
+        return round(total, 2)
+
     def _lookup_yahoo_pos_rank(self, roster_entry):
         if not self._yahoo_pos_ranks:
             return None
@@ -810,6 +880,11 @@ class FantasyLeagueStandingsPuller:
             
             # Full roster snapshot
             roster = self.serialize_roster(team)
+
+            # Last week result
+            last_week_result = self._get_last_week_result(team)
+            # Last 3 weeks points total (gated until after week 3)
+            last3_points_total = self._get_last3_points_total(team)
         
             return {
                 "record": record,
@@ -821,7 +896,9 @@ class FantasyLeagueStandingsPuller:
                 "points_against": points_against,
                 "point_differential": point_differential,
                 "games_played": total_games,
-                "roster": roster
+                "roster": roster,
+                "last_week_result": last_week_result,
+                "last3_points_total": last3_points_total
             }
             
         except Exception as e:
@@ -946,11 +1023,19 @@ class FantasyLeagueStandingsPuller:
                 "position_ranks": pos_to_ranks,
                 "injuries_count": injuries_count,
                 "injuries_list": injuries[:5],
+                "last_week_result": td.get("last_week_result"),
+                "last3_points_total": td.get("last3_points_total"),
             })
         return {
             "league": league_data.get("league_info", {}).get("name"),
             "season": league_data.get("league_info", {}).get("season_year"),
             "week": league_data.get("league_info", {}).get("target_week"),
+            "instructions": (
+                "Create power rankings for this league in the tone of a snarky football analyst. "
+                "Return a ranked order from 1 (best) to N (worst). For each team, include a brief, "
+                "insightful one-liner. Use provided stats and position_ranks; consider injuries with "
+                "position and rank where noted."
+            ),
             "teams": teams_prompt,
         }
 
@@ -961,6 +1046,68 @@ class FantasyLeagueStandingsPuller:
             print(f"ChatGPT prompt saved to {filename}")
         except Exception as e:
             print(f"Error saving prompt: {e}")
+
+    def _load_openai_key(self):
+        import os
+        try:
+            from dotenv import load_dotenv
+            load_dotenv()
+        except Exception:
+            pass
+        key = (
+            os.getenv("OPENAI_key")
+            or os.getenv("OPENAI_API_KEY")
+            or os.getenv("OPENAIKEY")
+        )
+        return key
+
+    def generate_power_rankings_html(self, prompt_file="chat_prompt.json", output_html="index.html"):
+        try:
+            with open(prompt_file, "r") as f:
+                payload = json.load(f)
+        except Exception as e:
+            print(f"Error reading {prompt_file}: {e}")
+            return False
+        key = self._load_openai_key()
+        if not key:
+            print("OpenAI API key not found in environment. Skipping AI generation.")
+            return False
+        try:
+            from openai import OpenAI
+        except Exception as e:
+            print(f"OpenAI client not available: {e}")
+            return False
+        try:
+            client = OpenAI(api_key=key)
+            system_msg = "You are a snarky but insightful football analyst who writes clean HTML."
+            user_msg = (
+                "Using this JSON, produce a ranked power rankings page as clean semantic HTML. "
+                "Include an ordered list with each team’s rank, team name, record, PF/PA, a one-line insight, "
+                "and briefly cite injuries and positional strengths where relevant. Keep styles minimal.\n\n"
+                + json.dumps(payload)
+            )
+            resp = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[
+                    {"role": "system", "content": system_msg},
+                    {"role": "user", "content": user_msg},
+                ],
+                temperature=0.7,
+            )
+            content = resp.choices[0].message.content if resp and resp.choices else ""
+            if not content:
+                print("Empty response from OpenAI.")
+                return False
+            # Ensure basic HTML scaffolding
+            if "<html" not in content.lower():
+                content = f"<html><head><meta charset='utf-8'><title>Power Rankings</title></head><body>{content}</body></html>"
+            with open(output_html, "w") as f:
+                f.write(content)
+            print(f"Power rankings HTML saved to {output_html}")
+            return True
+        except Exception as e:
+            print(f"Error generating HTML with OpenAI: {e}")
+            return False
     
     def print_standings_summary(self, data):
         """
@@ -1022,6 +1169,8 @@ def main():
         # Build and save ChatGPT prompt JSON
         prompt_obj = puller.build_chatgpt_prompt(standings_data)
         puller.save_prompt(prompt_obj)
+        # Optionally generate HTML power rankings via OpenAI
+        puller.generate_power_rankings_html()
         
         print(f"\nStandings data pulled for {len(standings_data['teams'])} teams")
         print("Ready for AI power rankings analysis!")

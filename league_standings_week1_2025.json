@@ -4,7 +4,7 @@
     "league_id": "461.l.13157",
     "season_year": 2025,
     "target_week": 1,
-    "data_pulled_at": "2025-09-13T13:35:08.861556"
+    "data_pulled_at": "2025-09-13T14:10:49.838057"
   },
   "teams": {
     "Church Chatter": {
@@ -183,7 +183,9 @@
           "selected_position": null,
           "pos_rank": 9
         }
-      ]
+      ],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     "Indy\u2019s dad": {
       "record": "1-0",
@@ -361,7 +363,9 @@
           "selected_position": null,
           "pos_rank": 13
         }
-      ]
+      ],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     "You Understand Right?": {
       "record": "1-0",
@@ -539,7 +543,9 @@
           "selected_position": null,
           "pos_rank": 1
         }
-      ]
+      ],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     "Pervy Patrick": {
       "record": "1-0",
@@ -728,7 +734,9 @@
           "selected_position": null,
           "pos_rank": 11
         }
-      ]
+      ],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     "Bonnie Lu": {
       "record": "1-0",
@@ -917,7 +925,9 @@
           "selected_position": null,
           "pos_rank": 8
         }
-      ]
+      ],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     "Check Please": {
       "record": "1-0",
@@ -1106,7 +1116,9 @@
           "selected_position": null,
           "pos_rank": 10
         }
-      ]
+      ],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     "DEVastation": {
       "record": "0-1",
@@ -1295,7 +1307,9 @@
           "selected_position": null,
           "pos_rank": 14
         }
-      ]
+      ],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     "Moff Gideon": {
       "record": "0-1",
@@ -1473,7 +1487,9 @@
           "selected_position": null,
           "pos_rank": 6
         }
-      ]
+      ],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     "Stugletary": {
       "record": "0-1",
@@ -1673,7 +1689,9 @@
           "selected_position": null,
           "pos_rank": 12
         }
-      ]
+      ],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     "Don Quan": {
       "record": "0-1",
@@ -1851,7 +1869,9 @@
           "selected_position": null,
           "pos_rank": 7
         }
-      ]
+      ],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     "champagnepapi707": {
       "record": "0-1",
@@ -2040,7 +2060,9 @@
           "selected_position": null,
           "pos_rank": 4
         }
-      ]
+      ],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     "They Hit The 2nd Bower": {
       "record": "0-1",
@@ -2066,9 +2088,9 @@
         },
         {
           "name": "Christian Kirk",
-          "status": "Q",
+          "status": "O",
           "display_position": "WR",
-          "eligible_positions": "{'position': ['WR', 'W/R/T']}",
+          "eligible_positions": "{'position': ['WR', 'W/R/T', 'IR']}",
           "editorial_team_abbr": "Hou",
           "player_id": 31017,
           "player_key": "461.p.31017",
@@ -2218,7 +2240,9 @@
           "selected_position": null,
           "pos_rank": 2
         }
-      ]
+      ],
+      "last_week_result": null,
+      "last3_points_total": null
     }
   }
 }

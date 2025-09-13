@@ -2,6 +2,7 @@
   "league": "Kappa Concealed Carry",
   "season": 2025,
   "week": 1,
+  "instructions": "Create power rankings for this league in the tone of a snarky football analyst. Return a ranked order from 1 (best) to N (worst). For each team, include a brief, insightful one-liner. Use provided stats and position_ranks; consider injuries with position and rank where noted.",
   "teams": [
     {
       "team_name": "Church Chatter",
@@ -41,7 +42,9 @@
         ]
       },
       "injuries_count": 0,
-      "injuries_list": []
+      "injuries_list": [],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     {
       "team_name": "Indy\u2019s dad",
@@ -81,7 +84,9 @@
         ]
       },
       "injuries_count": 0,
-      "injuries_list": []
+      "injuries_list": [],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     {
       "team_name": "You Understand Right?",
@@ -121,7 +126,9 @@
         ]
       },
       "injuries_count": 0,
-      "injuries_list": []
+      "injuries_list": [],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     {
       "team_name": "Pervy Patrick",
@@ -166,7 +173,9 @@
         "George Kittle (IR, TE:6)",
         "Dallas Goedert (O, TE:13)",
         "Brock Purdy (O, QB:12)"
-      ]
+      ],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     {
       "team_name": "Bonnie Lu",
@@ -210,7 +219,9 @@
       "injuries_list": [
         "Jauan Jennings (Q, WR:53)",
         "Jalen Coker (IR, WR:67)"
-      ]
+      ],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     {
       "team_name": "Check Please",
@@ -254,7 +265,9 @@
       "injuries_list": [
         "Chris Godwin Jr. (O, WR:64)",
         "Quinshon Judkins (Q, RB:53)"
-      ]
+      ],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     {
       "team_name": "DEVastation",
@@ -298,7 +311,9 @@
       "injuries_list": [
         "Jayden Reed (O, WR:21)",
         "Xavier Worthy (O, WR:63)"
-      ]
+      ],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     {
       "team_name": "Moff Gideon",
@@ -340,7 +355,9 @@
       "injuries_count": 1,
       "injuries_list": [
         "Brock Bowers (Q, TE:2)"
-      ]
+      ],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     {
       "team_name": "Stugletary",
@@ -382,7 +399,9 @@
         ]
       },
       "injuries_count": 0,
-      "injuries_list": []
+      "injuries_list": [],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     {
       "team_name": "Don Quan",
@@ -422,7 +441,9 @@
         ]
       },
       "injuries_count": 0,
-      "injuries_list": []
+      "injuries_list": [],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     {
       "team_name": "champagnepapi707",
@@ -463,7 +484,9 @@
         ]
       },
       "injuries_count": 0,
-      "injuries_list": []
+      "injuries_list": [],
+      "last_week_result": null,
+      "last3_points_total": null
     },
     {
       "team_name": "They Hit The 2nd Bower",
@@ -504,8 +527,10 @@
       },
       "injuries_count": 1,
       "injuries_list": [
-        "Christian Kirk (Q, WR:68)"
-      ]
+        "Christian Kirk (O, WR:68)"
+      ],
+      "last_week_result": null,
+      "last3_points_total": null
     }
   ]
 }
