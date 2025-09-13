@@ -4,7 +4,7 @@
     "league_id": "461.l.13157",
     "season_year": 2025,
     "target_week": 1,
-    "data_pulled_at": "2025-09-13T14:59:49.372808"
+    "data_pulled_at": "2025-09-13T15:11:51.971519"
   },
   "teams": {
     "Church Chatter": {
@@ -185,7 +185,8 @@
         }
       ],
       "last_week_result": null,
-      "last3_points_total": null
+      "last3_points_total": null,
+      "roster_quality": 2.498413
     },
     "Indy\u2019s dad": {
       "record": "1-0",
@@ -365,7 +366,8 @@
         }
       ],
       "last_week_result": null,
-      "last3_points_total": null
+      "last3_points_total": null,
+      "roster_quality": 1.648352
     },
     "DEVastation": {
       "record": "0-1",
@@ -556,7 +558,8 @@
         }
       ],
       "last_week_result": null,
-      "last3_points_total": null
+      "last3_points_total": null,
+      "roster_quality": 1.822619
     },
     "You Understand Right?": {
       "record": "1-0",
@@ -736,7 +739,8 @@
         }
       ],
       "last_week_result": null,
-      "last3_points_total": null
+      "last3_points_total": null,
+      "roster_quality": 1.817942
     },
     "Pervy Patrick": {
       "record": "1-0",
@@ -927,7 +931,8 @@
         }
       ],
       "last_week_result": null,
-      "last3_points_total": null
+      "last3_points_total": null,
+      "roster_quality": 1.501988
     },
     "Bonnie Lu": {
       "record": "1-0",
@@ -1118,7 +1123,8 @@
         }
       ],
       "last_week_result": null,
-      "last3_points_total": null
+      "last3_points_total": null,
+      "roster_quality": 2.228159
     },
     "Moff Gideon": {
       "record": "0-1",
@@ -1298,7 +1304,8 @@
         }
       ],
       "last_week_result": null,
-      "last3_points_total": null
+      "last3_points_total": null,
+      "roster_quality": 1.523612
     },
     "Check Please": {
       "record": "1-0",
@@ -1489,7 +1496,8 @@
         }
       ],
       "last_week_result": null,
-      "last3_points_total": null
+      "last3_points_total": null,
+      "roster_quality": 1.255289
     },
     "Stugletary": {
       "record": "0-1",
@@ -1691,7 +1699,8 @@
         }
       ],
       "last_week_result": null,
-      "last3_points_total": null
+      "last3_points_total": null,
+      "roster_quality": 0.849331
     },
     "Don Quan": {
       "record": "0-1",
@@ -1871,7 +1880,8 @@
         }
       ],
       "last_week_result": null,
-      "last3_points_total": null
+      "last3_points_total": null,
+      "roster_quality": 0.950313
     },
     "champagnepapi707": {
       "record": "0-1",
@@ -2062,7 +2072,8 @@
         }
       ],
       "last_week_result": null,
-      "last3_points_total": null
+      "last3_points_total": null,
+      "roster_quality": 1.240944
     },
     "They Hit The 2nd Bower": {
       "record": "0-1",
@@ -2242,7 +2253,8 @@
         }
       ],
       "last_week_result": null,
-      "last3_points_total": null
+      "last3_points_total": null,
+      "roster_quality": 2.075505
     }
   }
 }

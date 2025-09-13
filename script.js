@@ -74,6 +74,5 @@ async function main() {
   }
 }
 
-document.getElementById('refresh-btn').addEventListener('click', main);
-
+// Removed refresh button logic; page loads once with weekly data
 main();

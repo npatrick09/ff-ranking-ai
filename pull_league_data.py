@@ -87,37 +87,37 @@ class FantasyLeagueStandingsPuller:
             # Get all weeks up to target week
             for week_num in range(1, self.target_week + 1):
                 try:
-                    week = self.league.weeks()[week_num - 1]
-                    
-                    # Find this team's matchup for the week
-                    for matchup in week.matchups:
+                week = self.league.weeks()[week_num - 1]
+                
+                # Find this team's matchup for the week
+                for matchup in week.matchups:
                         team_stats = None
                         opponent_stats = None
                         
-                        if matchup.team1.team_id == team.team_id:
-                            team_stats = matchup.team1_stats
-                            opponent_stats = matchup.team2_stats
-                        elif matchup.team2.team_id == team.team_id:
-                            team_stats = matchup.team2_stats
-                            opponent_stats = matchup.team1_stats
+                    if matchup.team1.team_id == team.team_id:
+                        team_stats = matchup.team1_stats
+                        opponent_stats = matchup.team2_stats
+                    elif matchup.team2.team_id == team.team_id:
+                        team_stats = matchup.team2_stats
+                        opponent_stats = matchup.team1_stats
                         
                         if team_stats and opponent_stats:
                             # Get total points (stat_id "0" is total points)
                             for stat in team_stats:
                                 if stat.stat_id == "0":
                                     points_for += float(stat.value)
-                                    break
-                            
+                        break
+                
                             for stat in opponent_stats:
                                 if stat.stat_id == "0":
                                     points_against += float(stat.value)
                                     break
-                            break
-                        
+                    break
+                    
                 except IndexError:
                     # Week doesn't exist yet, skip
                     continue
-                except Exception as e:
+        except Exception as e:
                     print(f"Error processing week {week_num} for {team.name}: {e}")
                     continue
             
@@ -378,15 +378,15 @@ class FantasyLeagueStandingsPuller:
     def _get_team_week_points(self, team, week_num):
         """Return (team_points, opponent_points) for a given team and week, or (None, None)."""
         try:
-            week = self.league.weeks()[week_num - 1]
-            for matchup in week.matchups:
-                team_stats = None
+                week = self.league.weeks()[week_num - 1]
+                for matchup in week.matchups:
+                    team_stats = None
                 opp_stats = None
-                if matchup.team1.team_id == team.team_id:
-                    team_stats = matchup.team1_stats
+                    if matchup.team1.team_id == team.team_id:
+                        team_stats = matchup.team1_stats
                     opp_stats = matchup.team2_stats
-                elif matchup.team2.team_id == team.team_id:
-                    team_stats = matchup.team2_stats
+                    elif matchup.team2.team_id == team.team_id:
+                        team_stats = matchup.team2_stats
                     opp_stats = matchup.team1_stats
                 if team_stats is None or opp_stats is None:
                     continue
@@ -398,7 +398,7 @@ class FantasyLeagueStandingsPuller:
                             team_pts = float(st.value)
                         except Exception:
                             team_pts = None
-                        break
+                                break
                 for st in opp_stats:
                     if getattr(st, "stat_id", None) == "0":
                         try:
@@ -490,7 +490,7 @@ class FantasyLeagueStandingsPuller:
                     try:
                         score += 1.0 / float(rk)
                     except Exception:
-                        continue
+                    continue
             return round(score, 6)
         except Exception:
             return 0.0
@@ -769,7 +769,7 @@ class FantasyLeagueStandingsPuller:
                         rank_map = (self._sleeper_adp_pos_ranks or {}).get(pos) or {}
                         if rank_map:
                             fallback = max(rank_map.values()) + 1
-                        else:
+            else:
                             # if no ADP ranks, place after trending ranks if present
                             tmap = (self._sleeper_pos_ranks or {}).get(pos) or {}
                             if tmap:
@@ -871,20 +871,20 @@ class FantasyLeagueStandingsPuller:
         print(f"Processing team: {team.name}")
         
         try:
-            # Get team standings info
-            standings = list(self.league.standings())
-            team_standing = None
-            for standing in standings:
-                if standing.team_id == team.team_id:
-                    team_standing = standing
-                    break
-            
-            if not team_standing:
-                print(f"Could not find standings for {team.name}")
-                return None
-            
+        # Get team standings info
+        standings = list(self.league.standings())
+        team_standing = None
+        for standing in standings:
+            if standing.team_id == team.team_id:
+                team_standing = standing
+                break
+        
+        if not team_standing:
+            print(f"Could not find standings for {team.name}")
+            return None
+        
             # Get basic record
-            outcomes = team_standing.team_standings.outcome_totals
+        outcomes = team_standing.team_standings.outcome_totals
             wins = outcomes.wins
             losses = outcomes.losses
             ties = outcomes.ties
@@ -925,8 +925,8 @@ class FantasyLeagueStandingsPuller:
             # Roster quality score (from pos ranks)
             roster_quality = self._compute_roster_quality(roster)
         
-            return {
-                "record": record,
+        return {
+            "record": record,
                 "wins": wins,
                 "losses": losses,
                 "ties": ties,
@@ -1058,6 +1058,9 @@ class FantasyLeagueStandingsPuller:
                 # Star player selection
                 try:
                     if isinstance(rank, (int, float)) and int(rank) <= 5:
+                        # Exclude K and DST entirely from stars
+                        if pos in {"K", "DST"}:
+                            raise Exception("skip K/DST for stars")
                         nm = str(player.get("name") or "").strip()
                         if nm:
                             if pos == "QB":
