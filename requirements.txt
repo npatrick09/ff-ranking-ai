@@ -1,4 +1,7 @@
 yahoofantasy>=1.0.0
-statistics
-json
-collections
+requests>=2.31.0
+beautifulsoup4>=4.12.2
+rapidfuzz>=3.8.1
+requests>=2.31.0
+beautifulsoup4>=4.12.2
+rapidfuzz>=3.8.1
