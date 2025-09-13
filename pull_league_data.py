@@ -1031,9 +1031,10 @@ class FantasyLeagueStandingsPuller:
             "season": league_data.get("league_info", {}).get("season_year"),
             "week": league_data.get("league_info", {}).get("target_week"),
             "instructions": (
-                "Create power rankings for this league in the tone of a snarky football analyst. "
-                "Return a ranked order from 1 (best) to N (worst). For each team, include a brief, "
-                "insightful one-liner. Use provided stats and position_ranks; consider injuries with "
+                "Create power rankings for this league in the tone of a snarky, R-rated football analyst. "
+                "Return a ranked order from 1 (best) to N (worst). For each team, write 2–3 sentences of "
+                "edgy, comedic analysis; roast underperformers hard with crude humor and mild profanity, but "
+                "avoid slurs or hateful language. Use provided stats and position_ranks; consider injuries with "
                 "position and rank where noted."
             ),
             "teams": teams_prompt,
@@ -1079,11 +1080,15 @@ class FantasyLeagueStandingsPuller:
             return False
         try:
             client = OpenAI(api_key=key)
-            system_msg = "You are a snarky but insightful football analyst who writes clean HTML."
+            system_msg = (
+                "You are a snarky, R-rated (no slurs), edgy football analyst who writes clean, semantic HTML. "
+                "Use comedic roasts, mild profanity, and punchy phrasing."
+            )
             user_msg = (
                 "Using this JSON, produce a ranked power rankings page as clean semantic HTML. "
-                "Include an ordered list with each team’s rank, team name, record, PF/PA, a one-line insight, "
-                "and briefly cite injuries and positional strengths where relevant. Keep styles minimal.\n\n"
+                "Include an ordered list with each team’s rank, team name, record, PF/PA. For each team, write 2–3 sentences: "
+                "insightful, crude, and funny; roast losers. Briefly cite injuries and positional strengths where relevant. "
+                "Keep styles minimal.\n\n"
                 + json.dumps(payload)
             )
             resp = client.chat.completions.create(

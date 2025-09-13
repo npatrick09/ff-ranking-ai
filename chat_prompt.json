@@ -2,7 +2,7 @@
   "league": "Kappa Concealed Carry",
   "season": 2025,
   "week": 1,
-  "instructions": "Create power rankings for this league in the tone of a snarky football analyst. Return a ranked order from 1 (best) to N (worst). For each team, include a brief, insightful one-liner. Use provided stats and position_ranks; consider injuries with position and rank where noted.",
+  "instructions": "Create power rankings for this league in the tone of a snarky, R-rated football analyst. Return a ranked order from 1 (best) to N (worst). For each team, write 2\u20133 sentences of edgy, comedic analysis; roast underperformers hard with crude humor and mild profanity, but avoid slurs or hateful language. Use provided stats and position_ranks; consider injuries with position and rank where noted.",
   "teams": [
     {
       "team_name": "Church Chatter",
