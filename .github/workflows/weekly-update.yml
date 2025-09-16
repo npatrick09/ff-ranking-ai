@@ -27,7 +27,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Generate weekly rankings
-        run: python pull_league_data.py
+        run: python3 pull_league_data.py
 
       - name: Commit artifacts
         run: |
