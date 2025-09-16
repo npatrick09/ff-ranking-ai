@@ -23,11 +23,27 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Show Python and tree
+        run: |
+          python --version
+          pip --version
+          ls -la
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Restore Yahoo Fantasy token
+        if: ${{ secrets.YAHOO_TOKEN_B64 != '' }}
+        run: |
+          echo "Restoring .yahoofantasy token from secret"
+          echo "${{ secrets.YAHOO_TOKEN_B64 }}" | base64 -d > .yahoofantasy
+          ls -la .yahoofantasy
+
       - name: Install dependencies
         run: pip install -r requirements.txt
 
       - name: Generate weekly rankings
-        run: python3 pull_league_data.py
+        run: python pull_league_data.py
 
       - name: Commit artifacts
         run: |
